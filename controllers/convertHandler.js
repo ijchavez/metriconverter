@@ -163,7 +163,7 @@ function ConvertHandler() {
       result = num / lbsToKg;
 
     }
-    return result;
+    return parseFloat(result.toFixed(5));
     
   };
   
