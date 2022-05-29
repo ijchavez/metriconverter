@@ -3,17 +3,43 @@ function ConvertHandler() {
   function separateNumFromString(anInput){
     let splitted;
     
-    let splittedNum = anInput.match(/\d+/g);
+    let splittedNum = anInput.match(/[.\d\/]+/g) || ["1"];
     let spltText = anInput.match(/[a-zA-Z]+/g);
 
     splitted = [splittedNum, spltText];
 
     return splitted;
     
-}
+  }
+  function checkDiv(possibleFraction) {
+    let nums;
+    
+    if(possibleFraction != null){
+      nums = possibleFraction.toString().split("/");
+      if (nums.length > 2) {
+        return false;
+  
+      }
 
-  this.getNum = function(input) {
+    }
+    return nums;
+
+  }
+  this.getNum = function (input) {
     let result = separateNumFromString(input)[0];
+    let nums = checkDiv(result);
+    if (!nums) {
+      return undefined;
+
+    }
+    let num1 = nums[0];
+    let num2 = nums[1] || 1;
+
+    result = parseFloat((num1) / (num2));
+    if (isNaN(num1) || isNaN(num2)) {
+      return undefined;
+
+    }
     return result;
 
   };
@@ -65,7 +91,7 @@ function ConvertHandler() {
   
       }
       else if(unit == "gal"){
-        valueToReturn = "l";
+        valueToReturn = "L";
         
       }
       else if(unit == "lbs"){
